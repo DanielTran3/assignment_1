@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Daily Habit Tracker</string>
+    <string name="new_habit">+</string>
+</resources>
