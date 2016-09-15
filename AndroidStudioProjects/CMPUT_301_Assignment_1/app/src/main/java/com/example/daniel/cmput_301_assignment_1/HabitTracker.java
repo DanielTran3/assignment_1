@@ -13,23 +13,18 @@ public class HabitTracker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button new_habit_button = (Button) findViewById(R.id.new_button);
+
+        new_habit_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), NewHabitScreen.class);
+                startActivity(i);
+            }
+        });
     }
 
-    Button new_habit_button = (Button)findViewById(R.id.new_button);
-
-    new_habit_button.setOnClickListener(new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            // TODO Auto-generated method stub
-            Intent i = new Intent(getApplicationContext(),NewHabitScreen.class);
-            startActivity(i);
-        }
-    });
-
-    public void newHabit(View view)
-    {
-        Intent intent = new Intent(this, NewHabitScreen.class);
-        startActivity(intent);
-    }
 }
+
