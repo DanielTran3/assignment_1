@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,12 +20,17 @@
         android:background="@drawable/rectangle_edittext"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:hint="Enter Habit"
+        android:hint="@string/entered_habit_name"
         android:textSize="25sp"/>
 
-    <!--<DatePicker-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"></DatePicker>-->
+    <DatePicker
+        android:id="@+id/pick_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:datePickerMode="calendar"
+        android:visibility="gone">
+
+    </DatePicker>
 
     <TextView
         android:layout_width="match_parent"
@@ -31,80 +38,107 @@
         android:layout_below="@+id/new_habit_text"
         android:layout_alignParentStart="true"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp"
-        android:text="DATE:"
+        android:layout_marginStart="10dp"
+        android:text="@string/entered_date"
         android:textSize="10pt"/>
 
     <Button
+        android:id="@+id/calendar_button"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="85dp"
         android:background="@color/white"
         android:text="@string/input_date"
         android:textColor="@color/black"
         android:textSize="8pt"/>
 
+    <!--Code from http://stackoverflow.com/questions/2581481/assign-width-to-half-available-screen-width-declaratively-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/new_habit_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:text="@string/ok"
+            android:textColor="@color/black"
+            android:textSize="8pt"
+            android:layout_gravity="bottom"/>
+
+
+        <Button
+            android:id="@+id/new_habit_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:text="@string/cancel"
+            android:textColor="@color/black"
+            android:textSize="8pt"/>
+
+
+    </LinearLayout>
+
+
     <CheckBox android:id="@+id/checkbox_Sunday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
-        android:layout_marginLeft="@dimen/activity_new_habit_screen_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_new_habit_screen_horizontal_margin"
         android:text="@string/Sunday"
-        android:textSize="12pt"
-        android:onClick="onCheckboxClicked" />
+        android:textSize="12pt"/>
 
     <CheckBox android:id="@+id/checkbox_Monday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="190dp"
-        android:layout_marginLeft="@dimen/activity_new_habit_screen_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_new_habit_screen_horizontal_margin"
         android:text="@string/Monday"
-        android:textSize="12pt"
-        android:onClick="onCheckboxClicked" />
+        android:textSize="12pt" />
 
     <CheckBox android:id="@+id/checkbox_Tuesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="230dp"
-        android:layout_marginLeft="@dimen/activity_new_habit_screen_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_new_habit_screen_horizontal_margin"
         android:text="@string/Tuesday"
-        android:textSize="12pt"
-        android:onClick="onCheckboxClicked" />
+        android:textSize="12pt"/>
 
     <CheckBox android:id="@+id/checkbox_Wednesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="270dp"
-        android:layout_marginLeft="@dimen/activity_new_habit_screen_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_new_habit_screen_horizontal_margin"
         android:text="@string/Wednesday"
-        android:textSize="12pt"
-        android:onClick="onCheckboxClicked" />
+        android:textSize="12pt"/>
 
     <CheckBox android:id="@+id/checkbox_Thursday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="310dp"
-        android:layout_marginLeft="@dimen/activity_new_habit_screen_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_new_habit_screen_horizontal_margin"
         android:text="@string/Thursday"
-        android:textSize="12pt"
-        android:onClick="onCheckboxClicked" />
+        android:textSize="12pt"/>
 
     <CheckBox android:id="@+id/checkbox_Friday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="350dp"
-        android:layout_marginLeft="@dimen/activity_new_habit_screen_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_new_habit_screen_horizontal_margin"
         android:text="@string/Friday"
-        android:textSize="12pt"
-        android:onClick="onCheckboxClicked" />
+        android:textSize="12pt"/>
 
     <CheckBox android:id="@+id/checkbox_Saturday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="390dp"
-        android:layout_marginLeft="@dimen/activity_new_habit_screen_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_new_habit_screen_horizontal_margin"
         android:text="@string/Saturday"
-        android:textSize="12pt"
-        android:onClick="onCheckboxClicked" />S
+        android:textSize="12pt"/>
 </RelativeLayout>
