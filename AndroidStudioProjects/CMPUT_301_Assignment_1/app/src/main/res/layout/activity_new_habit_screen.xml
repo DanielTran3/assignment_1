@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -51,7 +50,8 @@
         android:background="@color/white"
         android:text="@string/input_date"
         android:textColor="@color/black"
-        android:textSize="8pt"/>
+        android:textSize="8pt"
+        android:onClick="openDateSelector"/>
 
     <!--Code from http://stackoverflow.com/questions/2581481/assign-width-to-half-available-screen-width-declaratively-->
     <LinearLayout

@@ -19,5 +19,6 @@
         android:gravity="center"
         android:clickable="true"
         android:background="@color/lightGreen"
-        android:onClick="newHabit"/>
+        android:onClick="addNewHabit"/>
+
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.daniel.cmput_301_assignment_1;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.DatePicker;
 import android.support.v4.app.DialogFragment;
@@ -12,7 +13,26 @@ import java.util.Calendar;
 // Class modeled from https://developer.android.com/guide/topics/ui/controls/pickers.html
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener
 {
-    String name;
+
+    // Code for listener from: http://stackoverflow.com/questions/15121373/returning-string-from-dialog-fragment-back-to-activity
+    public static interface OnCompleteListener {
+        public abstract void onComplete(String date);
+    }
+
+    private OnCompleteListener mListener;
+
+    // make sure the Activity implemented it
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            this.mListener = (OnCompleteListener)context;
+        }
+        catch (final ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnCompleteListener");
+        }
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
@@ -26,7 +46,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     public void onDateSet(DatePicker view, int year, int month, int day)
     {
-        view.updateDate(year, month, day);
-        name = Integer.toString(day) + Integer.toString(month) + Integer.toString(year);
+        String date = Integer.toString(year) + "-" + Integer.toString(month) + Integer.toString(day);
+        this.mListener.onComplete(date);
     }
+
 }
