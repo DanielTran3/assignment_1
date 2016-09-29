@@ -12,12 +12,12 @@ public class Habit
     private ArrayList<String> habitRepeatDays;
     private int completions;
 
-    public void habit()
+    public Habit(String habitName, String habitDate, ArrayList<String> habitRepeatDays)
     {
         this.habitName = habitName;
         this.habitDate = habitDate;
         this.habitRepeatDays= habitRepeatDays;
-        this.completions = completions;
+        this.completions = 0;
     }
 
     public String getHabitName()

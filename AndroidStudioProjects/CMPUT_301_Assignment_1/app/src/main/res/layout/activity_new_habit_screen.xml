@@ -22,14 +22,14 @@
         android:hint="@string/entered_habit_name"
         android:textSize="25sp"/>
 
-    <DatePicker
-        android:id="@+id/pick_date"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:datePickerMode="calendar"
-        android:visibility="gone">
+    <!--<DatePicker-->
+        <!--android:id="@+id/pick_date"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:datePickerMode="calendar"-->
+        <!--android:visibility="gone">-->
 
-    </DatePicker>
+    <!--</DatePicker>-->
 
     <TextView
         android:layout_width="match_parent"
@@ -39,19 +39,30 @@
         android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
         android:text="@string/entered_date"
-        android:textSize="10pt"/>
+        android:textSize="12pt"/>
 
-    <Button
-        android:id="@+id/calendar_button"
-        android:layout_width="275dp"
+    <TextView
+        android:id="@+id/new_habit_date"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="85dp"
-        android:background="@color/white"
-        android:text="@string/input_date"
-        android:textColor="@color/black"
-        android:textSize="8pt"
-        android:onClick="openDateSelector"/>
+        android:layout_below="@+id/new_habit_text"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text=""
+        android:textSize="12pt"/>
+
+    <!--<Button-->
+        <!--android:id="@+id/calendar_button"-->
+        <!--android:layout_width="275dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="80dp"-->
+        <!--android:layout_marginTop="85dp"-->
+        <!--android:background="@color/white"-->
+        <!--android:text="@string/input_date"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="8pt"-->
+        <!--android:onClick="openDateSelector"/>-->
 
     <!--Code from http://stackoverflow.com/questions/2581481/assign-width-to-half-available-screen-width-declaratively-->
     <LinearLayout
@@ -69,7 +80,8 @@
             android:text="@string/ok"
             android:textColor="@color/black"
             android:textSize="8pt"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:onClick="createNewHabit"/>
 
 
         <Button
@@ -80,7 +92,8 @@
             android:background="@color/white"
             android:text="@string/cancel"
             android:textColor="@color/black"
-            android:textSize="8pt"/>
+            android:textSize="8pt"
+            android:onClick="cancelNewHabit"/>
 
 
     </LinearLayout>
