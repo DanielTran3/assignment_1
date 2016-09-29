@@ -87,7 +87,7 @@ public class NewHabitScreen extends AppCompatActivity {
             String newDate = generateTodaysDate();
             String newName = getHabitName();
             ArrayList<String> newDaysOfWeek = getDaysOfWeek();
-            hlController.addHabit(new Habit(newDate, newName, newDaysOfWeek));
+            hlController.addHabit(new Habit(newName, newDate, newDaysOfWeek));
             finish();
         }
 

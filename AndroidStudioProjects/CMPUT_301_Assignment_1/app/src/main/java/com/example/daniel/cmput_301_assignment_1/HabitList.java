@@ -18,6 +18,10 @@ public class HabitList
     public void addHabit(Habit habit)
     {
         habitList.add(habit);
+        notifyListeners();
+    }
+
+    private void notifyListeners() {
     }
 
     public void removeHabit(Habit habit)
@@ -25,7 +29,7 @@ public class HabitList
         habitList.remove(habit);
     }
 
-    public ArrayList<Habit> getHabitList()
+    public ArrayList<Habit> getHabits()
     {
         return habitList;
     }

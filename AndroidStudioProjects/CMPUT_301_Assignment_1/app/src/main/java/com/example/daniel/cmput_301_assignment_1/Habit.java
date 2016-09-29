@@ -50,5 +50,8 @@ public class Habit
         return null;
     }
 
-
+    public String toString()
+    {
+        return getHabitName();
+    }
 }

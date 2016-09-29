@@ -1,5 +1,7 @@
 package com.example.daniel.cmput_301_assignment_1;
 
+import java.util.ArrayList;
+
 /**
  * Created by Daniel on 2016-09-28.
  */
