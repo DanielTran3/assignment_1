@@ -21,7 +21,26 @@ public class HabitTracker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        list_of_habits();
+//        list_of_habits();
+
+        ListView habitList = (ListView) findViewById(R.id.habitTrackerMainListView);
+
+        Collection<Habit> habits = new HabitListController().getHabitList().getHabits();
+        final ArrayList<Habit> list = new ArrayList<Habit>(habits);
+        final ArrayAdapter<Habit> habitTrackerAdapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, list);
+
+        habitList.setAdapter(habitTrackerAdapter);
+
+        HabitListController.getHabitList().addListener(new HabitListener() {
+            @Override
+            public void update()
+            {
+                list.clear();
+                Collection<Habit> habits = new HabitListController().getHabitList().getHabits();
+                list.addAll(habits);
+                habitTrackerAdapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
@@ -45,15 +64,27 @@ public class HabitTracker extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void list_of_habits()
-    {
-        ListView habitList = (ListView) findViewById(R.id.habitTrackerMainListView);
-
-        Collection<Habit> habits = new HabitListController().getHabitList().getHabits();
-        ArrayList<Habit> list = new ArrayList<Habit>(habits);
-        ArrayAdapter<Habit> habitTrackerAdapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, list);
-
-        habitList.setAdapter(habitTrackerAdapter);
-    }
+//    public  list_of_habits()
+//    {
+//        ListView habitList = (ListView) findViewById(R.id.habitTrackerMainListView);
+//
+//        Collection<Habit> habits = new HabitListController().getHabitList().getHabits();
+//        final ArrayList<Habit> list = new ArrayList<Habit>(habits);
+//        final ArrayAdapter<Habit> habitTrackerAdapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, list);
+//
+//        habitList.setAdapter(habitTrackerAdapter);
+//
+//        HabitListController.getHabitList().addListener(new HabitListener() {
+//            @Override
+//            public void update()
+//            {
+//                list.clear();
+//                Collection<Habit> habits = new HabitListController().getHabitList().getHabits();
+//                list.addAll(habits);
+//                habitTrackerAdapter.notifyDataSetChanged();
+//            }
+//        });
+//
+//    }
 }
 

@@ -1,5 +1,7 @@
 package com.example.daniel.cmput_301_assignment_1;
 
+import android.net.sip.SipAudioCall;
+
 import java.util.ArrayList;
 
 /**
@@ -9,10 +11,12 @@ public class HabitList
 {
 
     protected ArrayList<Habit> habitList;
+    protected ArrayList<HabitListener> listeners;
 
     public HabitList()
     {
         habitList = new ArrayList<Habit>();
+        listeners = new ArrayList<HabitListener>();
     }
 
     public void addHabit(Habit habit)
@@ -21,7 +25,22 @@ public class HabitList
         notifyListeners();
     }
 
-    private void notifyListeners() {
+    public void notifyListeners()
+    {
+        for (HabitListener hl : listeners)
+        {
+            hl.update();
+        }
+    }
+
+    public void addListener(HabitListener hl)
+    {
+        listeners.add(hl);
+    }
+
+    public void removeListener(HabitListener hl)
+    {
+        listeners.remove(hl);
     }
 
     public void removeHabit(Habit habit)
