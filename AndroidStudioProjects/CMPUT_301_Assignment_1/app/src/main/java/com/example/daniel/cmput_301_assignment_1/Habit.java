@@ -1,6 +1,7 @@
 package com.example.daniel.cmput_301_assignment_1;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by Mike on 2016-09-26.
@@ -12,11 +13,11 @@ public class Habit
     private ArrayList<String> habitRepeatDays;
     private int completions;
 
-    public Habit(String habitName, String habitDate, ArrayList<String> habitRepeatDays)
+    public Habit(String inputName, String inputDate, ArrayList<String> inputRepeatDays)
     {
-        this.habitName = habitName;
-        this.habitDate = habitDate;
-        this.habitRepeatDays= habitRepeatDays;
+        this.habitName = inputName;
+        this.habitDate = inputDate;
+        this.habitRepeatDays= inputRepeatDays;
         this.completions = 0;
     }
 
@@ -39,9 +40,19 @@ public class Habit
         this.habitDate = date;
     }
 
+    public String getHabitDate()
+    {
+        return this.habitDate;
+    }
+
     public void setHabitRepeatDays(ArrayList<String> listOfHabitDays)
     {
         this.habitRepeatDays = listOfHabitDays;
+    }
+
+    public ArrayList<String> getHabitRepeatDays()
+    {
+        return this.habitRepeatDays;
     }
 
     public ArrayList<String> viewCompletions(Habit habit)
@@ -54,4 +65,6 @@ public class Habit
     {
         return getHabitName();
     }
+
+
 }
