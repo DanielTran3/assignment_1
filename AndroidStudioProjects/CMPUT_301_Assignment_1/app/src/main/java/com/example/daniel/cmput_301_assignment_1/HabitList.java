@@ -46,10 +46,22 @@ public class HabitList
     public void removeHabit(Habit habit)
     {
         habitList.remove(habit);
+        notifyListeners();
     }
 
     public ArrayList<Habit> getHabits()
     {
         return habitList;
+    }
+
+    public void updateHabitCompletion(Habit retrieveHabit)
+    {
+        for (Habit h : habitList)
+        {
+            if (h.equals(retrieveHabit))
+            {
+                h.updateHabitCompletion();
+            }
+        }
     }
 }

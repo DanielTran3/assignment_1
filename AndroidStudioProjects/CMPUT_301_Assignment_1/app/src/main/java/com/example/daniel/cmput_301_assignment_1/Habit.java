@@ -26,15 +26,20 @@ public class Habit
         return this.habitName;
     }
 
-    public int getNumberOfCompletions()
-    {
-        return this.completions;
-    }
     public void setHabitName(String name)
     {
         this.habitName = name;
     }
 
+    public int getHabitCompletions()
+    {
+        return this.completions;
+    }
+
+    public void updateHabitCompletion()
+    {
+        this.completions += 1;
+    }
     public void setHabitDate(String date)
     {
         this.habitDate = date;
