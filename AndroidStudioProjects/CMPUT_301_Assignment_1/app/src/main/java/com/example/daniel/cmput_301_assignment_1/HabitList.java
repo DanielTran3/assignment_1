@@ -61,10 +61,22 @@ public class HabitList
             if (h.equals(retrieveHabit))
             {
                 h.updateHabitCompletion();
+                notifyListeners();
             }
         }
     }
 
+    public void removeHabitCompletion(Habit habit, String removeCompletion)
+    {
+        for (Habit h : habitList)
+        {
+            if (h.equals(habit))
+            {
+                h.removeHabitCompletion(removeCompletion);
+                notifyListeners();
+            }
+        }
+    }
     public boolean contains(Habit isHabit)
     {
         for (Habit h: habitList)

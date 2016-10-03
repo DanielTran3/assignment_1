@@ -3,6 +3,7 @@ package com.example.daniel.cmput_301_assignment_1;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 public class Habit implements Serializable
 {
@@ -10,6 +11,7 @@ public class Habit implements Serializable
     private String habitDate;
     private ArrayList<String> habitRepeatDays;
     private int completions;
+    private ArrayList<String> completionList = new ArrayList<String>();
 
     public Habit(String inputName, String inputDate, ArrayList<String> inputRepeatDays)
     {
@@ -17,6 +19,7 @@ public class Habit implements Serializable
         this.habitDate = inputDate;
         this.habitRepeatDays= inputRepeatDays;
         this.completions = 0;
+//        this.completionList = new ArrayList<String>();
     }
 
     public String getHabitName()
@@ -36,8 +39,18 @@ public class Habit implements Serializable
 
     public void updateHabitCompletion()
     {
-        this.completions += 1;
+        Date newCompletion = new Date();
+        this.completionList.add(newCompletion.toString());
+        this.completions = completionList.size();
     }
+
+    //possibly update to position instead of String
+    public void removeHabitCompletion(String removeCompletion)
+    {
+        completionList.remove(removeCompletion.toString());
+        this.completions = completionList.size();
+    }
+
     public void setHabitDate(String date)
     {
         this.habitDate = date;
@@ -58,10 +71,10 @@ public class Habit implements Serializable
         return this.habitRepeatDays;
     }
 
-    public ArrayList<String> viewCompletions(Habit habit)
+    public ArrayList<String> viewCompletions()
     {
         //Implement later
-        return null;
+        return completionList;
     }
 
     public String toString()

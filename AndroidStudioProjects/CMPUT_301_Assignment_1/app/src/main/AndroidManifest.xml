@@ -19,7 +19,7 @@
             android:name=".NewHabitScreen"
             android:label="@string/activity_new_habit"></activity>
         <activity
-            android:name=".DeleteHabit"
+            android:name=".HabitCompletionsScreen"
             android:label="@string/activity_delete_habit"></activity>
     </application>
 

@@ -1,13 +1,11 @@
 package com.example.daniel.cmput_301_assignment_1;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,13 +27,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 
 
-public class HabitTracker extends AppCompatActivity {
+public class HabitTracker extends AppCompatActivity implements Serializable {
 
     private static final String FILENAME = "habit_data.sav";
     private ArrayList<Habit> hlist = new HabitListController().getHabitList().getHabits();
@@ -122,7 +119,7 @@ public class HabitTracker extends AppCompatActivity {
     public void deleteHabits(MenuItem menu)
     {
         Toast.makeText(this, "Delete Habits", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HabitTracker.this, DeleteHabit.class);
+        Intent intent = new Intent(HabitTracker.this, HabitCompletionsScreen.class);
         startActivity(intent);
     }
 
@@ -177,6 +174,21 @@ public class HabitTracker extends AppCompatActivity {
                         "Habit '" + habitToComplete.getHabitName() +
                         "' has " + habitToComplete.getHabitCompletions() +
                         " completions", Toast.LENGTH_SHORT).show();
+            }
+        });
+        completeDialog.setNeutralButton("View Completions", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                ArrayList<String> habitCompletions = habitToComplete.viewCompletions();
+                    if (habitCompletions.size() == 0)
+                {
+                    Toast.makeText(HabitTracker.this, "Habit has no completions", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(HabitTracker.this, HabitCompletionsScreen.class);
+                    intent.putExtra("com.example.daniel.cmput_301_assignment_1.data", habitToComplete);
+                    startActivity(intent);
+                }
             }
         });
         completeDialog.show();
