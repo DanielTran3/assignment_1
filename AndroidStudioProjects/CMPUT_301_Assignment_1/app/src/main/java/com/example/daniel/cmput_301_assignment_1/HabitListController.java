@@ -7,36 +7,16 @@ import java.util.Observable;
 public class HabitListController extends Observable
 {
     private static HabitList habitList = null;
-//    private static StorageManager getStorageManager()
-//    {
-//        return StorageManager.getManager();
-//    }
+
     public static HabitList getHabitList()
     {
         if (habitList == null)
         {
             habitList = new HabitList();
-//            habitList.addListener(new HabitListener() {
-//
-//                @Override
-//                public void update() {
-//                    try {
-//                        getStorageManager().saveHabits(habitList);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            });
-//            habitList = StorageManager.loadHabits();
         }
 
         return habitList;
     }
-
-//    public void saveHabits() throws IOException {
-//        StorageManager.saveHabits(habitList);
-//    }
 
     public void addHabit(Habit habit)
     {

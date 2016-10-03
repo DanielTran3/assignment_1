@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by Daniel on 2016-09-28.
  */
-public class HabitList
+public class HabitList implements HabitListener
 {
 
     protected ArrayList<Habit> habitList;
@@ -38,10 +38,10 @@ public class HabitList
         listeners.add(hl);
     }
 
-    public void removeListener(HabitListener hl)
-    {
-        listeners.remove(hl);
-    }
+//    public void removeListener(HabitListener hl)
+//    {
+//        listeners.remove(hl);
+//    }
 
     public void removeHabit(Habit habit)
     {
@@ -77,15 +77,20 @@ public class HabitList
             }
         }
     }
-    public boolean contains(Habit isHabit)
-    {
-        for (Habit h: habitList)
-        {
-            if (h.equals(isHabit))
-            {
-                return true;
-            }
-        }
-        return false;
+//    public boolean contains(Habit isHabit)
+//    {
+//        for (Habit h: habitList)
+//        {
+//            if (h.equals(isHabit))
+//            {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+    @Override
+    public void update() {
+
     }
 }

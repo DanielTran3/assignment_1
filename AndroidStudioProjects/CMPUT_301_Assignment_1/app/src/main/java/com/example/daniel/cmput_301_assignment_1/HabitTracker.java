@@ -1,5 +1,7 @@
 package com.example.daniel.cmput_301_assignment_1;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,7 +32,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class HabitTracker extends AppCompatActivity implements Serializable {
@@ -41,10 +46,9 @@ public class HabitTracker extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //StorageManager.initManager(this.getApplicationContext());
         final ListView habitList = (ListView) findViewById(R.id.habitTrackerMainListView);
         list_of_habits = HabitListController.getHabitList();
-        loadHabits();
+        loadHabits(this.getApplicationContext());
         for(Habit h : hlist)
         {
             list_of_habits.addHabit(h);
@@ -61,6 +65,8 @@ public class HabitTracker extends AppCompatActivity implements Serializable {
             {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                String todaysDate = generateTodaysDate();
 
                 // Change to encorporate day with completion
                 if (hlist.get(position).getHabitCompletions() == 0)
@@ -107,20 +113,6 @@ public class HabitTracker extends AppCompatActivity implements Serializable {
                 habitTrackerAdapter.notifyDataSetChanged();
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    public void deleteHabits(MenuItem menu)
-    {
-        Toast.makeText(this, "Delete Habits", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HabitTracker.this, HabitCompletionsScreen.class);
-        startActivity(intent);
     }
 
     public void addNewHabit(View v)
@@ -201,10 +193,15 @@ public class HabitTracker extends AppCompatActivity implements Serializable {
 //        loadHabits();
 //
 //    }
-    private void loadHabits()
+    private void loadHabits(Context context)
     {
         try
         {
+            // Getting file directory code to ensure file is created from:
+            // stackoverflow.com/questions/5017292/how-to-create-a-file-on-android-internal-storage
+            ContextWrapper cw = new ContextWrapper(context);
+            File dir = cw.getDir(FILENAME, context.MODE_PRIVATE);
+
             FileInputStream fis = openFileInput(FILENAME);
             BufferedReader br_in = new BufferedReader(new InputStreamReader(fis));
 
@@ -233,6 +230,15 @@ public class HabitTracker extends AppCompatActivity implements Serializable {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public String generateTodaysDate()
+    {
+        Date todaysDate = new Date();
+
+        // Simple date format from: https://www.mkyong.com/java/java-how-to-get-current-date-time-date-and-calender/
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(todaysDate);
     }
 //    public  list_of_habits()
 //    {
