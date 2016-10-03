@@ -1,24 +1,42 @@
 package com.example.daniel.cmput_301_assignment_1;
 
+import android.test.AndroidTestCase;
+import android.test.mock.MockContext;
 
 import junit.framework.TestCase;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class StorageManagerTest extends TestCase
+public class StorageManagerTest extends AndroidTestCase
 {
-    public void testSavingHabits()
-    {
-        ArrayList<String> days = new ArrayList<String>();
-        days.add("Monday");
-        Habit newHabit = new Habit("Do Homework", "2016-10-11", days);
-        HabitList habitList = new HabitList();
-        habitList.addHabit(newHabit);
-        StorageManager hts = new StorageManager(getContext());
+    public void testStorage() {
+        try {
+            String testName = "Work";
+            String testDate = "2016-02-23";
+            ArrayList<String> testHabitRepeatDays = new ArrayList<String>();
 
-        hts.storeHabits(habitList);
+            Habit habit = new Habit(testName, testDate, testHabitRepeatDays);
 
-        HabitList loadHabitList = hts.loadHabits();
+            HabitList habitList = new HabitList();
+            habitList.addHabit(habit);
 
+            StorageManager sm = new StorageManager(new MockContext());
+            sm.saveHabits(habitList);
+
+            HabitList loadList = sm.loadHabits();
+            assertTrue("There is a habit in loadList", loadList.getHabits().equals(habit));
+            assertTrue("Has Habit", habitList.contains(habit));
+            assertTrue("Has Habit", loadList.contains(habit));
+        }
+        catch (IOException e)
+        {
+            assertTrue("IOException thrown" + e.toString(), false);
+        }
+        catch (ClassNotFoundException e)
+        {
+            assertTrue("ClassNotFoundException thrown" + e.toString(), false);
+        }
     }
+
 }

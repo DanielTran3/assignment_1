@@ -52,5 +52,6 @@ public class HabitTest extends TestCase
         assertTrue(habit.getHabitCompletions() == 1);
 
         assertTrue(habit.getHabitDate().equals("2016-02-23"));
+
     }
 }

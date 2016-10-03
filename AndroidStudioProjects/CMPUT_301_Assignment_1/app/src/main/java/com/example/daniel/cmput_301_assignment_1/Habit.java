@@ -1,12 +1,10 @@
 package com.example.daniel.cmput_301_assignment_1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Created by Mike on 2016-09-26.
- */
-public class Habit
+public class Habit implements Serializable
 {
     private String habitName;
     private String habitDate;

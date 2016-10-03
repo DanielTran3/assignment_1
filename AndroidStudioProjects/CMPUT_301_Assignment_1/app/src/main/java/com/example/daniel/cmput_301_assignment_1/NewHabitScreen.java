@@ -1,8 +1,13 @@
 package com.example.daniel.cmput_301_assignment_1;
 
+import android.content.DialogInterface;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,11 +25,20 @@ public class NewHabitScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_habit_screen);
 
-        TextView viewTodaysDate = (TextView) findViewById(R.id.new_habit_date);
-        viewTodaysDate.setText(generateTodaysDate());
+        //StorageManager.initManager(this.getApplicationContext());
+        final Button dateButton = (Button) findViewById(R.id.calendar_button);
+        dateButton.setText(generateTodaysDate());
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dateSelector(dateButton);
+            }
+        });
+//        TextView viewTodaysDate = (TextView) findViewById(R.id.new_habit_date);
+//        viewTodaysDate.setText(generateTodaysDate());
 
         //.invalidate() method for refresh from: http://stackoverflow.com/questions/13150073/how-to-dynamically-update-textview-text
-        viewTodaysDate.invalidate();
+        dateButton.invalidate();
     }
 
     public String generateTodaysDate()
@@ -37,6 +51,11 @@ public class NewHabitScreen extends AppCompatActivity {
 
     }
 
+    public String getInputDate()
+    {
+        Button selectedDate = (Button)findViewById(R.id.calendar_button);
+        return selectedDate.getText().toString();
+    }
     public ArrayList<String> getDaysOfWeek()
     {
         ArrayList<String> dayChecked = new ArrayList<String>();
@@ -84,7 +103,7 @@ public class NewHabitScreen extends AppCompatActivity {
         else
         {
             Toast.makeText(this, "New habit successfully created!", Toast.LENGTH_SHORT).show();
-            String newDate = generateTodaysDate();
+            String newDate = getInputDate();
             String newName = getHabitName();
             ArrayList<String> newDaysOfWeek = getDaysOfWeek();
             hlController.addHabit(new Habit(newName, newDate, newDaysOfWeek));
@@ -92,17 +111,46 @@ public class NewHabitScreen extends AppCompatActivity {
         }
 
     }
+
+    private void dateSelector(final Button dateButton)
+    {
+        AlertDialog.Builder completeDialog = new AlertDialog.Builder(NewHabitScreen.this);
+        // Code for inputDate from http://stackoverflow.com/questions/10903754/input-text-dialog-android
+        final EditText inputDate = new EditText(this);
+        inputDate.setInputType(InputType.TYPE_CLASS_DATETIME);
+        completeDialog.setView(inputDate);
+        completeDialog.setMessage("Change Habit Date (ex. 2016-01-20)");
+        completeDialog.setCancelable(true);
+        completeDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        completeDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dateButton.setText(inputDate.getText().toString());
+            }
+        });
+        completeDialog.show();
+    }
 //    public void openDateSelector(View v)
 //    {
 //        // Code from http://android-developers.blogspot.ca/2012/05/using-dialogfragments.html
 //        FragmentManager fm = getSupportFragmentManager();
 //        DatePickerFragment pickDate = new DatePickerFragment();
 //        pickDate.show(fm,"pick_date");
+//        Button dateButton = (Button) findViewById(R.id.calendar_button);
+////        dateButton.setText(pickDate.setDate());
+//
+//        //pickDate.
 //    }
-
+//
 //    public void onComplete(String date) {
 //        Toast.makeText(this, "complete date", Toast.LENGTH_SHORT).show();
-//        // Change button text
+//        Button dateButton = (Button) findViewById(R.id.calendar_button);
+//        //dateButton.setText();
 //    }
 }
 

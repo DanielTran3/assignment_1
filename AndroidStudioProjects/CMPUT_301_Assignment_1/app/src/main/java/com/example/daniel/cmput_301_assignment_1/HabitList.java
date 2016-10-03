@@ -64,4 +64,16 @@ public class HabitList
             }
         }
     }
+
+    public boolean contains(Habit isHabit)
+    {
+        for (Habit h: habitList)
+        {
+            if (h.equals(isHabit))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -52,17 +52,17 @@
         android:text=""
         android:textSize="12pt"/>
 
-    <!--<Button-->
-        <!--android:id="@+id/calendar_button"-->
-        <!--android:layout_width="275dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="80dp"-->
-        <!--android:layout_marginTop="85dp"-->
-        <!--android:background="@color/white"-->
-        <!--android:text="@string/input_date"-->
-        <!--android:textColor="@color/black"-->
-        <!--android:textSize="8pt"-->
-        <!--android:onClick="openDateSelector"/>-->
+    <Button
+        android:id="@+id/calendar_button"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="85dp"
+        android:background="@color/white"
+        android:text="@string/input_date"
+        android:textColor="@color/black"
+        android:textSize="8pt"
+        android:onClick="dateSelector"/>
 
     <!--Code from http://stackoverflow.com/questions/2581481/assign-width-to-half-available-screen-width-declaratively-->
     <LinearLayout

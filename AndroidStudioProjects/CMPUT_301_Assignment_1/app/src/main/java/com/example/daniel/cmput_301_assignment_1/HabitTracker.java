@@ -18,24 +18,44 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 
 public class HabitTracker extends AppCompatActivity {
 
+    private static final String FILENAME = "habit_data.sav";
+    private ArrayList<Habit> hlist = new HabitListController().getHabitList().getHabits();
+    private HabitList list_of_habits;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        list_of_habits();
-
+        //StorageManager.initManager(this.getApplicationContext());
         final ListView habitList = (ListView) findViewById(R.id.habitTrackerMainListView);
-
-        ArrayList<Habit> habits = new HabitListController().getHabitList().getHabits();
-        final ArrayList<Habit> hlist = new ArrayList<Habit>(habits);
-        final ArrayAdapter<Habit> habitTrackerAdapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, hlist)
+        list_of_habits = HabitListController.getHabitList();
+        loadHabits();
+        for(Habit h : hlist)
+        {
+            list_of_habits.addHabit(h);
+        }
+//        ArrayList<Habit> habits = loadHabits();
+//        ArrayList<Habit> habits = new HabitListController().getHabitList().getHabits();
+//        final ArrayList<Habit> hlist = new ArrayList<Habit>(habits);
+        final ArrayAdapter<Habit> habitTrackerAdapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, list_of_habits.getHabits())
         {
 
             // Code to change text from: http://android--code.blogspot.ca/2015/08/android-listview-text-color.html
@@ -66,9 +86,10 @@ public class HabitTracker extends AppCompatActivity {
             public void update()
             {
                 hlist.clear();
-                ArrayList<Habit> habits = new HabitListController().getHabitList().getHabits();
+                ArrayList<Habit> habits = list_of_habits.getHabits();
                 hlist.addAll(habits);
                 habitTrackerAdapter.notifyDataSetChanged();
+                saveHabits();
             }
         });
         habitList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -127,6 +148,7 @@ public class HabitTracker extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 HabitListController.getHabitList().removeHabit(habitToRemove);
+                saveHabits();
                 Toast.makeText(HabitTracker.this, "Habit '" + habitToRemove.getHabitName() + "' deleted", Toast.LENGTH_SHORT).show();
             }
         });
@@ -150,6 +172,7 @@ public class HabitTracker extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 HabitListController.getHabitList().updateHabitCompletion(habitToComplete);
+                saveHabits();
                 Toast.makeText(HabitTracker.this,
                         "Habit '" + habitToComplete.getHabitName() +
                         "' has " + habitToComplete.getHabitCompletions() +
@@ -157,6 +180,47 @@ public class HabitTracker extends AppCompatActivity {
             }
         });
         completeDialog.show();
+    }
+
+//    @Override
+//    protected void onStart()
+//    {
+//        super.onStart();
+//        loadHabits();
+//
+//    }
+    private void loadHabits()
+    {
+        try
+        {
+            FileInputStream fis = openFileInput(FILENAME);
+            BufferedReader br_in = new BufferedReader(new InputStreamReader(fis));
+
+            Gson gson = new Gson();
+
+            // Code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
+            Type listType = new TypeToken<ArrayList<Habit>>(){}.getType();
+
+            hlist = gson.fromJson(br_in, listType);
+        } catch (FileNotFoundException e) {
+//            return new HabitListController().getHabitList().getHabits();
+            hlist = HabitListController.getHabitList().getHabits();
+        }
+    }
+
+    private void saveHabits()
+    {
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME, 0);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(hlist, bw);
+            bw.flush();
+            fos.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 //    public  list_of_habits()
 //    {
