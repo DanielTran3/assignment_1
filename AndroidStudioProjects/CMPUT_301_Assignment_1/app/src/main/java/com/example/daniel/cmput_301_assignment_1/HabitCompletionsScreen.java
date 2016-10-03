@@ -23,9 +23,10 @@ public class HabitCompletionsScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_completions_habit);
         Intent intent = getIntent();
-        final Habit receivedHabit = (Habit) intent.getSerializableExtra("com.example.daniel.cmput_301_assignment_1.data");
-        ListView listOfCompletions = (ListView) findViewById(R.id.habit_completion_list);
-
+        Habit passedHabit = (Habit) intent.getSerializableExtra("com.example.daniel.cmput_301_assignment_1.data");
+        final ListView listOfCompletions = (ListView) findViewById(R.id.habit_completion_list);
+        ArrayList<Habit> oldHabitList = HabitListController.getHabitList().getHabits();
+        final Habit receivedHabit = getHabit(oldHabitList, passedHabit.getHabitName());
         final ArrayAdapter<String> habitCompletionAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, receivedHabit.viewCompletions());
 
         listOfCompletions.setAdapter(habitCompletionAdapter);
@@ -35,34 +36,23 @@ public class HabitCompletionsScreen extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id)
             {
                 final String deleteHabitCompletion = receivedHabit.viewCompletions().get(pos);
-                createCompletionDeleteDialog(receivedHabit, deleteHabitCompletion);
+                HabitListController.getHabitList().removeHabitCompletion(receivedHabit, deleteHabitCompletion);
                 habitCompletionAdapter.notifyDataSetChanged();
+                HabitListController.getHabitList().notifyListeners();
+                listOfCompletions.invalidate();
             }
         });
     }
 
-    public void createCompletionDeleteDialog(Habit habit, String delHabitCompletion)
+    public Habit getHabit(ArrayList<Habit> hl, String habitName)
     {
-        final Habit habitToRemove = habit;
-        final String completionToRemove = delHabitCompletion;
-        AlertDialog.Builder deleteDialog = new AlertDialog.Builder(HabitCompletionsScreen.this);
-        deleteDialog.setMessage("Delete " + completionToRemove + "?");
-        deleteDialog.setCancelable(true);
-        deleteDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
+        for (Habit h : hl)
+        {
+            if (h.getHabitName().equals(habitName))
+            {
+                return h;
             }
-        });
-        deleteDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                HabitListController.getHabitList().removeHabitCompletion(habitToRemove, completionToRemove);
-                Toast.makeText(HabitCompletionsScreen.this, "Completion Deleted", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        deleteDialog.show();
+        }
+        return null;
     }
-
 }
