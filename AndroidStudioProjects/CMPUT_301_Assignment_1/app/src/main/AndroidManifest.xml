@@ -20,7 +20,7 @@
             android:label="@string/activity_new_habit"></activity>
         <activity
             android:name=".HabitCompletionsScreen"
-            android:label="@string/activity_delete_habit"></activity>
+            android:label="@string/activity_completions_habit"></activity>
     </application>
 
 </manifest>

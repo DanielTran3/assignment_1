@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DTran3-HabitTracker</string>
     <string name="activity_new_habit">Create a New Habit</string>
-    <string name="activity_delete_habit">Habit Completions</string>
+    <string name="activity_completions_habit">Habit Completions</string>
     <string name="action_settings">Delete Habit</string>
     <string name="new_habit">+</string>
     <string name="input_date">Click Here to Input a Date</string>

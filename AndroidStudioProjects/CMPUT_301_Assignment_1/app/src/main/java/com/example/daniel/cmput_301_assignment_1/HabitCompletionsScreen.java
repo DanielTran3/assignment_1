@@ -27,6 +27,8 @@ public class HabitCompletionsScreen extends AppCompatActivity {
         final ListView listOfCompletions = (ListView) findViewById(R.id.habit_completion_list);
         ArrayList<Habit> oldHabitList = HabitListController.getHabitList().getHabits();
         final Habit receivedHabit = getHabit(oldHabitList, passedHabit.getHabitName());
+        final TextView completionNumber = (TextView) findViewById(R.id.number_of_completions);
+        completionNumber.setText(receivedHabit.getHabitName() + " Completions: " + Integer.toString(receivedHabit.getHabitCompletions()));
         final ArrayAdapter<String> habitCompletionAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, receivedHabit.viewCompletions());
 
         listOfCompletions.setAdapter(habitCompletionAdapter);
@@ -37,6 +39,7 @@ public class HabitCompletionsScreen extends AppCompatActivity {
             {
                 final String deleteHabitCompletion = receivedHabit.viewCompletions().get(pos);
                 HabitListController.getHabitList().removeHabitCompletion(receivedHabit, deleteHabitCompletion);
+                completionNumber.setText(receivedHabit.getHabitName() + " Completions: " + Integer.toString(receivedHabit.getHabitCompletions()));
                 habitCompletionAdapter.notifyDataSetChanged();
                 HabitListController.getHabitList().notifyListeners();
                 listOfCompletions.invalidate();

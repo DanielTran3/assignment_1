@@ -19,7 +19,6 @@ public class Habit implements Serializable
         this.habitDate = inputDate;
         this.habitRepeatDays= inputRepeatDays;
         this.completions = 0;
-//        this.completionList = new ArrayList<String>();
     }
 
     public String getHabitName()
